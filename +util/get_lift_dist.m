@@ -1,0 +1,61 @@
+function [ys,Cps,Ps,Fs,span,area,chords] = get_lift_dist(model,resFile,Tags)
+arguments
+    model
+    resFile
+    Tags = ["wing_","Connector_"]
+end
+    pRes = resFile.read_aero_pressure;
+    idx = false(size(model.fe.AeroSurfaces))';
+    for i = 1:length(Tags)
+        idx = idx | contains([model.fe.AeroSurfaces.Tag],Tags(i));
+    end
+    Areas = [model.fe.AeroSurfaces(idx).Area];
+    panels = [model.fe.AeroSurfaces(idx).get_panel_coords()];
+    % get span of each panel
+    Spans = zeros(size(Areas));
+    for i = 1:size(panels,3)
+        chord_1 = norm(panels(1,:,i)-panels(2,:,i));
+        chord_2 = norm(panels(4,:,i)-panels(3,:,i));
+        Spans(i) = Areas(i)/(0.5*(chord_1+chord_2));
+    end
+    Ns = [model.fe.AeroSurfaces.nPanels];
+    Nend = cumsum(Ns);
+    Nstart = [1,Nend(1:end-1)+1];
+    Ns = [Nstart;Nend];
+    Ns = Ns(:,idx);
+    PanelIdx = [];
+    for i = 1:size(Ns,2)
+        PanelIdx = [PanelIdx,Ns(1,i):Ns(2,i)];
+    end
+    Xs = [model.fe.AeroSurfaces(idx).CentroidsGlobal];
+    Xs = round(Xs,10); % dealing with rounding errors
+    P = pRes.Pressure(PanelIdx);
+    Cp = pRes.Cp(PanelIdx);
+    A = Areas';
+    S = Spans';
+    F = P.*A;
+    ys = [unique(Xs(2,:))];
+    [Cps,Ps,Fs,chords] = deal(zeros(1,length(ys)-2));
+    span = 0;
+    area = 0;
+    for i = 1:length(ys)
+        tmp_id = Xs(2,:) == ys(i);
+        Cps(i) = mean(Cp(tmp_id));
+        Ps(i) = sum(F(tmp_id))./sum(A(tmp_id));
+        Fs(i) = sum(F(tmp_id))./mean(S(tmp_id));
+        if ys(i)<0
+            Ps(i) = -Ps(i);
+            Fs(i) = -Fs(i);
+        end
+        span = span + mean(S(tmp_id));
+        area = area + sum(A(tmp_id));
+        chords(i) = sum(A(tmp_id))./mean(S(tmp_id));
+    end
+    delta = (model.Span - (ys(end)-ys(1)))/2;
+    ys = [ys(1)-delta,ys,ys(end)+delta];
+    Cps = [0,abs(Cps)./max(abs(Cps)),0];
+
+    Ps = [0,Ps,0];
+    Fs = [0,Fs,0];
+    chords = [chords(1),chords,chords(end)];
+end
