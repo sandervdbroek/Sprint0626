@@ -18,6 +18,8 @@ the function `SetConfiguration` shoufl setup analysis methodoligies for a given 
 
 `GetLoads` returns an array of `cast.size.Loads` instances which are explained more in a later section, but basicly store the loads on each wing for each load case specified.
 
+The slected loads surrogate can be changed near line 17 of `TAW.StructuralSizing`
+
 ## Enforced Lift Dist Surrogate
 
 `loads.EnforcedLiftDist` is a simple Loads surrogate to estimate wing loads given an enforced lift distribution. Given an instance `ld = loads.EnforcedLiftDist(ADP)`, the method `ld.GetLoads(...)` iterates over each load case and passes it the specific methods depending on the type of Loadcase.

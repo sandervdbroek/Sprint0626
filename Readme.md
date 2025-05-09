@@ -15,13 +15,16 @@ This codebase currently provides an example of sizing an a321 like aircraft with
 
 ## Getting Started
 
-To run this code, you must first install the required Matlab packages
-- [baff](https://github.com/DCRG-Bristol/baff)
-- [ads](https://github.com/DCRG-Bristol/ads)
-- [matran](https://github.com/DCRG-Bristol/matran)
-- [flexcast](https://github.com/DCRG-Bristol/flexcast)
+To run this code, you must first install the required Matlab packages: [baff](https://github.com/DCRG-Bristol/baff), [ads](https://github.com/DCRG-Bristol/ads), [matran](https://github.com/DCRG-Bristol/matran), [flexcast](https://github.com/DCRG-Bristol/flexcast) and [Matlab Utilities](https://github.com/DCRG-Bristol/matlab-utilities)
 
-These can be installed using [pim](https://github.com/DCRG-Bristol/pim). pim usage instruction can be found [here](https://dcrg-bristol.github.io/baff/pim.html)
+These can be installed using Package Installer for Matlab ([pim](https://github.com/DCRG-Bristol/pim)). pim usage instruction can be found [here](https://dcrgdocs.readthedocs.io/en/latest/pim.html)
+
+For a quick intro: Downlaod the latest Binary from the github repository (pim.mltbx)
+https://github.com/DCRG-Bristol/pim/releases
+
+run this binary with Matlab open. then type the following in the command window
+```pim install -i pim_requirements.txt```
+which will downlaod all of the required packages from github.
 
 If all packages are correctly installed, running the following script will size an a321 like aircraft
 ```scripts.a321_sizing()```
