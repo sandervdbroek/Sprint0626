@@ -9,8 +9,8 @@ classdef LoadCaseFactory
         function Cases = GetCases(ADP,opts,type)
             arguments
                 ADP TAW
-                opts util.SizingOpts
-                type string {mustBeMember(type,["Baseline","SAH","Empty","Cruise","CruiseSAH"])}
+                opts util.SizingOpts = util.SizingOpts();
+                type string {mustBeMember(type,["Baseline","SAH","Empty","Cruise","CruiseSAH"])} = "Baseline"
             end
             config = struct();
             config.FuelMass = ADP.MTOM*ADP.Mf_Fuel;

@@ -20,7 +20,7 @@ ADP.Engine = cast.config.Engine.CFM_LEAP_1A(1,cruise_alt,ADP.ADR.M_c);
 %wing settings
 ADP.RibPitch = 0.8;
 ADP.WingBeamElements = 60;
-ADP.WingletHeight = 2.4;
+ADP.WingletHeight = 0;
 ADP.Span = 35.8;
 
 %hinge setting
@@ -33,7 +33,7 @@ ADP.VTPArea = 21.72;
 ADP.HTP_TCR_root = 0.15;
 ADP.SizeEmpenage = false;
 ADP.WingArea = 122.4;
-ADP.isWingAreaFixed = true;
+ADP.isWingAreaFixed = false;
 ADP.ldg_scale_factor = 0.85;
 ADP.HTP_TCR_root = 0.15;
 
@@ -45,8 +45,8 @@ ADP.SecondaryMethod = "Planform";
 
 % fuel settings
 ADP.ExtraFuel = 0;
-ADP.EnforcedConnectorFuelMass = 3238;
-ADP.EnforcedWingFuelMass = 6126;
+% ADP.EnforcedConnectorFuelMass = 3238;
+% ADP.EnforcedWingFuelMass = 6126;
 
 %% inital mass estimate
 %initial mission analysis to estimate MTOM
