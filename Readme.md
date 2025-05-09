@@ -33,7 +33,7 @@ The class TAW, which can be instantiated as ```ADP = TAW();```, provides the glu
 
 I will better define which ones we will vary during the week at a later date.  It is important to note that TAW is a handle class.
 
-Given a set of hyperparameters, the method ```ADP.BuildBaff()``` builds the Aircraft model and stores it in the property `ADP.Baff`. This is stored in the "Binary Aircraft File Format" (Baff). Baff is a platform-agnostic way to save aircraft geometries. More details on the structure of baff files can be found here. 
+Given a set of hyperparameters, the method ```ADP.BuildBaff()``` builds the Aircraft model and stores it in the property `ADP.Baff`. This is stored in the "Binary Aircraft File Format" (Baff). Baff is a platform-agnostic way to save aircraft geometries. More details on the structure of baff files/objects can be found here. 
 
 The key points are:
 - baff objects fully define the geometry
@@ -44,7 +44,7 @@ you can plot the baff object with the call
 ```f=figure(1);clf;ADP.Baff.draw(f);axis equal;```
 
 My idea for the week would be offline tools can be developed by
-1. loading a "sized" aircraft model (e.g. ```load(bin\example_a321.mat)```)
+1. loading a "sized" aircraft model (e.g. ```load(example_data\UB321_simple.mat)```)
 2. pertubing hyper paramters
 3. building the baff model
 4. Use the baff model as a starting point for your other tools.
@@ -105,7 +105,31 @@ This is currently instantiated in the TAW class during the method call `ADP.Upda
 
 ### Mass Estimates
 
-Many mass estimates use empirical relations and can be found in the `ADP.BuildBaff` and `ADP.BuildWing` methods. Wing mass and structural properties are estimated using a 1D beam condensation of an aluminium wingbox. See this paper for details. These are implemented with the code in the Flexcast project (in the class `cast.size.WingBoxSizing`).
+Many mass estimates use empirical relations and can be found in the `ADP.BuildBaff` and `ADP.BuildWing` methods. Wing mass and structural properties are estimated using a 1D beam condensation of an aluminium wingbox. See [this](https://doi.org/10.2514/1.C036908) paper for details. These are implemented with the code in the Flexcast project (in the class `cast.size.WingBoxSizing`).
+
+
+## Extracting Data from the Baff object
+
+The output of a conceptual sizing is a "sized" instance of a TAW class, which can be saved to a .mat file. By loading a specific version, then building the baff, you can quickly extract information about the aircrafts geometry / structural properties.
+
+For example, script `scripts.example_plot_EI` plots the EI distribution along the span of the wing and `scripts.example_plot_planform` extracts the wing planform
+
+### TAW class Baff specifics
+Generic info on baff objects can be found here.
+
+When you build the Baff, if `ADP.HingeEta=1` (e.g. no folding wingtip), the resulting baff object will have 7 wings. Calling `[ADP.Baff.Wing.Name]` will write the name of these seven wings.
+
+"Wing_Connector_RHS"    "Wing_RHS"    "Wing_Connector_LHS"    "Wing_LHS"    "HTP_RHS"    "HTP_LHS"    "VTP"
+
+HTPs and VTP are the empenage, and the main wing is split into four components (two on each side). "Wing_Connector_*" extends from the centreline to the boundary of the fuselage, and  "Wing_*" extends from the fuselage to the tip.
+
+If `ADP.HingeEta < 1` then there will be nine wings
+
+"Wing_Connector_RHS"    "Wing_RHS"    "FFWT_RHS"    "Wing_Connector_LHS"    "Wing_LHS"    "FFWT_LHS"    "HTP_RHS"    "HTP_LHS" "VTP"
+
+where the main wing is split into two sections at the hinge line. (These two components are connected via a "Hinge" element).
+
+*Fuel* and *Payload* elements have a notion of "Filling Level", this way multiple aircraft configurations (e.g. payload / fuel load combinations can be trialed). To vary Filling levels of an already built baff object see the method `ADP.SetConfiguration()`
 
 
 

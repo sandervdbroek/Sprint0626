@@ -3,7 +3,7 @@ arguments
     obj
     Cases (:,1) cast.LoadCase % Load Cases to run
 end
-ads.util.printing.title('Calculating Nastran Loads',Length=60);
+ads.util.printing.title('Calculating Enforced Loads',Length=60);
 
 for i = 1:length(Cases)
     % if ~obj.Silent

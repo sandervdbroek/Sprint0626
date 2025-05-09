@@ -63,7 +63,7 @@ fprintf('Trip Fuel: %.1f Tn\n',(1-prod(fs([1:5,10,11])))*93.5);
 %% sizing Mano
 res = [];
 % now size with DLM for manouevres only
-ads.util.printing.title('Mano (DLM)','Length',60,'Symbol','$')
+ads.util.printing.title('Example Surrogates','Length',60,'Symbol','$')
 sizeOpts = util.SizingOpts(IncludeGusts=false,IncludeTurb=false,BinFolder=bin_folder);
 [ADP,res_mtom,Lds,time,isError,Cases] = ADP.Aircraft_Sizing(sizeOpts);
 % get data during cruise
@@ -74,5 +74,8 @@ Lds = Lds | Lds_c;
 tmp_stats = util.ADP2SizeMeta(ADP,'GFWT','Mano',1.5,Lds,time,isError,Cases);
 res = dcrg.struct.concat(res,tmp_stats);
 
-save('bin/UB321_baseline_simple.mat','ADP','Lds');
+if ~isfolder('example_data')
+    mkdir('example_data');
+end
+save('example_data/UB321_simple.mat','ADP','Lds');
 
