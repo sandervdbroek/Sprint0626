@@ -1,16 +1,16 @@
-function notify(Status,email,message)
+function notify(Status,message,email)
 arguments
     Status string {mustBeMember(Status,{'Complete','Error','Info'})}
-    email string
     message string = "";
+    email string = "";
 end
 switch Status
     case 'Complete'
-        dcrg.sendEmail(email,'MATLAB: JOB Complete',message);
+        dcrg.sendEmail('MATLAB: JOB Complete',message,email);
     case 'Error'
-        dcrg.sendEmail(email,'MATLAB: JOB Error',message);
+        dcrg.sendEmail('MATLAB: JOB Error',message,email);
     case 'Info'
-        dcrg.sendEmail(email,'MATLAB: JOB Information',message);
+        dcrg.sendEmail('MATLAB: JOB Information',message,email);
 end
 end
 

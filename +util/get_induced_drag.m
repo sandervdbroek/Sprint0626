@@ -13,7 +13,7 @@ end
 
     [ys,Cps,~,Fs,~,area] = util.get_lift_dist(model,resFile,Tags);
 
-    b = model.Span;
+    b = model.Taw.Span;
     ys = round(ys + (b/2-ys(end)),10);
     thetas = acos(round(2*ys/b,10));
     ns = (1:15)';

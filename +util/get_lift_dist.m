@@ -51,7 +51,7 @@ end
         area = area + sum(A(tmp_id));
         chords(i) = sum(A(tmp_id))./mean(S(tmp_id));
     end
-    delta = (model.Span - (ys(end)-ys(1)))/2;
+    delta = (model.Taw.Span - (ys(end)-ys(1)))/2;
     ys = [ys(1)-delta,ys,ys(end)+delta];
     Cps = [0,abs(Cps)./max(abs(Cps)),0];
 
