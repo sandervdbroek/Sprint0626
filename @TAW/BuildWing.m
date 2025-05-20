@@ -19,9 +19,20 @@ end
 % define some top-level params
 M_c = obj.ADR.M_c;
 [rho,a] = ads.util.atmos(obj.ADR.Alt_cruise);
+if obj.NoKink
+    opts.KinkPos = D_c/2;
+end
 KinkEta = (opts.KinkPos)/(obj.Span/2);
 Cl_cruise = obj.MTOM*obj.Mf_TOC*9.81/(0.5*rho*(M_c*a)^2*obj.WingArea);
-sweep_qtr = real(acosd(0.75.*obj.Mstar./M_c));
+
+if isempty(obj.SweepAngle) || isnan(obj.SweepAngle)
+    sweep_qtr = real(acosd(0.75.*obj.Mstar./M_c));
+    if obj.ForwardSwept
+        sweep_qtr = sweep_qtr*-1;
+    end
+else
+    sweep_qtr = obj.SweepAngle;
+end
 
 % get wing thickness ratios
 if obj.Size_wing

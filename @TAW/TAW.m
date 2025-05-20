@@ -27,7 +27,7 @@ classdef TAW < cast.ADP & cast.size.BaffSizing
 
         WingBeamElements = 25;
 
-        Mstar = 0.935;  % to calc wing sweep angle
+        
         MainWingRHS;
         MainWingLHS;
 
@@ -52,6 +52,14 @@ classdef TAW < cast.ADP & cast.size.BaffSizing
 
         AeroSurrogate api.AbstractPolar = aero.NullPolar();
     end
+
+    properties % wing sweep control
+        Mstar = 0.935;  % to calc wing sweep angle realtive to Cruise Mach Number
+        SweepAngle = nan; % if not nan overrides MStar calc
+        ForwardSwept = false; %if SweepAngle=nan then this defines if a forward or backward swept wing is generated
+        NoKink = false;
+    end
+
 
     %jig twist
     properties
