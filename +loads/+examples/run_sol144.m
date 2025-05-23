@@ -12,7 +12,7 @@ ld.CleanUp = false;
 M = 0.75;
 Alt = 32000; %ft
 Load_factor = 2.5; %G
-LoadCase = cast.LoadCase.Manoeuvre(M,Alt,2.5,SafetyFactor=1);
+LoadCase = cast.LoadCase.Manoeuvre(M,Alt,Load_factor,SafetyFactor=1);
 
 % run analysis (assumes nastran 2023 or later)
 [Lds,BinFolder] = ld.StaticLoads(LoadCase,1);
