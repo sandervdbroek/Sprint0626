@@ -8,5 +8,5 @@ arguments
     opts.Alts = 60e3:-1e3:0;
 end
 obj.SetConfiguration(FuelMass=obj.Taw.MTOM*obj.Taw.Mf_Fuel*obj.Taw.Mf_TOC,IsLocked=opts.IsLocked)
-[BinFolder,flut_res] = obj.ISO145(Mach,BinFolder=obj.BinFolder,TruelySilent=~opts.Verbose,GetEigenVectors=opts.EV,Alts=opts.Alts);
+[BinFolder,flut_res] = obj.ISO145(Mach,TruelySilent=~opts.Verbose,GetEigenVectors=opts.EV,Alts=opts.Alts);
 end

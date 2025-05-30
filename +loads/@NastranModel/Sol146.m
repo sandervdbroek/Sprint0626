@@ -4,7 +4,6 @@ arguments
     Mach double % Mach Number
     alt double  % Altitude in ft
 
-    opts.BinFolder = '';
     opts.NumAttempts = 3
     opts.Silent = true;
     opts.TruelySilent = false;
@@ -59,6 +58,6 @@ sol.UpdateID(IDs);
 
 %% run Nastran
 binFolder = sol.run(obj.fe,Silent=opts.Silent,NumAttempts=opts.NumAttempts,...
-    BinFolder=opts.BinFolder,TruelySilent=opts.TruelySilent);
+    BinFolder=obj.BinFolder,TruelySilent=opts.TruelySilent);
 end
 

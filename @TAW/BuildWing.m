@@ -155,6 +155,7 @@ if ~isRight
 end
 Connector.add(Wing);
 
+
 %% create FFWT if required
 if HasFoldingWingtip
     %% create hinge

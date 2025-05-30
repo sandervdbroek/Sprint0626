@@ -7,7 +7,11 @@ ads.util.printing.title('Calculating Nastran Loads',Length=60);
 if obj.UpdateJigTwist
     config = struct();
     config.FuelMass = obj.Taw.MTOM*obj.Taw.Mf_Fuel;
-    config.PayloadFraction = Cases(1).ConfigParams.PayloadFraction;
+    if ~isempty(Cases)
+        config.PayloadFraction = Cases(1).ConfigParams.PayloadFraction;
+    else
+        config.PayloadFraction = 1;
+    end
     config.IsLocked = true;
     tmpCase = util.JigTwistSizingCase(obj.Taw.ADR.M_c,obj.Taw.ADR.Alt_cruise.*cast.SI.ft,Config=config,SafetyFactor=1,Idx=99);
     Cases = [tmpCase;Cases];

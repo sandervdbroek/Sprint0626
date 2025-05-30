@@ -77,7 +77,7 @@ if opts.IncludeNegG
 end
 % add gusts/turb at Vc MC Corner
 [~,~,~,~,h] = ads.util.get_flight_condition(obj.ADR.M_c,CAS=obj.ADR.V_climb);
-Alt = convlength(h,'m','ft'); % alt of Vc MC corner
+Alt = h.*cast.SI.ft; % alt of Vc MC corner
 if opts.IncludeGusts
     Cases(end+1) = cast.LoadCase.Gust(obj.ADR.M_c,Alt,Config=config,SafetyFactor=opts.SafetyFactor,Idx=4+ExtraOpts.IdxOffset);
 end
