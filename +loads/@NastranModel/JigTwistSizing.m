@@ -14,7 +14,7 @@ arguments
     RunOpts.TruelySilent = true;
 end
 % get dynamic pressure
-[rho,a,T,P,~,~,~] = ads.util.atmos(convlength(Case.Alt,'ft','m'));
+[rho,a,T,P,~,~,~] = ads.util.atmos(Case.Alt./cast.SI.ft);
 V = a*Case.Mach;
 q = 0.5*rho*V^2;
 
