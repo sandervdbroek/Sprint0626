@@ -3,7 +3,7 @@ arguments
     ADP
     SizingOpts util.SizingOpts = util.SizingOpts();
     opts.TargetDeltaMass = 20;
-    opts.SizeMethod = "Baseline";
+    opts.SizeMethod string {mustBeMember(opts.SizeMethod,["Baseline","SAH"])} = "Baseline";
     opts.MaxSteps = 15;
 end
 tic;
