@@ -323,6 +323,35 @@ pylon_mass = baff.Mass(obj.Masses.EnginePylon/2,"eta",0.8,"Name",string(['engine
 engine.add(eng_mass);
 engine.add(pylon_mass);
 
+%% ADDED - SJ: adding flutter control masses
+
+if obj.inclFlutterMass
+
+    %VALENTINE'S FUNCTION GOES HERE...please follow the output format :)
+    [masses, eta, massId, isInnerWing] = obj.flutterMassInterpolation;
+
+    %update innerwing_____________________________________________________
+
+    %find offsets....
+    eta_data = [Wing.AeroStations.Eta];
+    LE_ofst_data = [Wing.AeroStations.Chord].*[Wing.AeroStations.BeamLoc];
+    LE_ofst = interp1(eta_data(:), LE_ofst_data(:), eta(isInnerWing)); %le positions at requested
+
+    Wing = obj.addMass(Wing, masses(isInnerWing), eta(isInnerWing),...
+        LE_ofst, {massId{isInnerWing}});
+
+    %update floating wing__________________________________________________
+    if HasFoldingWingtip
+        %find offsets....
+        eta_data = [FFWT.AeroStations.Eta];
+        LE_ofst_data = [FFWT.AeroStations.Chord].*[FFWT.AeroStations.BeamLoc];
+        LE_ofst = interp1(eta_data(:), LE_ofst_data(:), eta(~isInnerWing)); %le positions at requested
+        FFWT = obj.addMass(FFWT, masses(~isInnerWing), eta(~isInnerWing),...
+            0*LE_ofst, {massId{~isInnerWing}});
+    end
+
+end
+
 % add main landing gear
 l_offset = 0.15;
 if obj.Size_ldg    
