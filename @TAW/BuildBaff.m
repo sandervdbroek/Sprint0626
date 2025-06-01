@@ -16,7 +16,7 @@ FuelMass = obj.MTOM * obj.Mf_Fuel + obj.ExtraFuel;
 
 
 % estimate fuselage size
-[L_c,D_c] = cast.geom.dim.cabin(obj.ADR.PAX,N_sr=6); % enforce 6 seats per row
+[L_c,D_c] = cast.geom.dim.cabin(obj.ADR.PAX,N_sr=obj.N_seatsPerRow); % enforce 6 seats per row
 [fuselage,Ls] = cast.geom.fuselage(L_c+D_c,D_c);
 L_f = Ls(end);
 
