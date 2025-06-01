@@ -60,6 +60,10 @@ classdef TAW < cast.ADP & cast.size.BaffSizing
         NoKink = false;
     end
 
+    properties
+        N_seatsPerRow = 5;
+    end
+
 
     %jig twist
     properties

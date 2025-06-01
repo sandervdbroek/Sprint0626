@@ -3,7 +3,7 @@ function SetConfiguration(obj,opts)
 %   Detailed explanation goes here
 arguments
     obj
-    opts.FuelMass = obj.MTOM*obj.Mf_Fuel;
+    opts.FuelMass = obj.Taw.MTOM*obj.Taw.Mf_Fuel;
     opts.PayloadFraction = 1;
     opts.IsLocked = true;
 end
