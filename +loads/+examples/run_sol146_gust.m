@@ -1,4 +1,4 @@
-load('C:\git\Sprint0626\example_data\UB321_simple.mat')
+load('example_data\A220_simple.mat')
 
 %% update Hyper Paramters
 ADP.AR = 12;

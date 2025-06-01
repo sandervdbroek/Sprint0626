@@ -4,7 +4,7 @@ close all;
 cruise_alt = 34e3./cast.SI.ft;
 alternate_dist = 325e3;
 
-bin_folder = 'bin_a320_ja1';
+bin_folder = 'bin_a220_ja1';
 %% load A321
 % set parameters
 % ADP.WingBoxParams = cast.size.WingBoxSizing.empty;

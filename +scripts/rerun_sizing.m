@@ -1,11 +1,11 @@
-load('C:\git\Sprint0626\example_data\UB321_simple.mat')
+load('C:\git\Sprint0626\example_data\A220_simple.mat')
 
 %% ========================= Set Hyper-parameters =========================
 ADP.AR = 12;
 ADP.HingeEta = 0.7;
 ADP.FlareAngle = 15;
 ADP.ADR.M_c = 0.78;
-ADP.SweepAngle = [];
+ADP.SweepAngle = []; % if empty will link to mach number...
 
 %% ============================ Re-run Sizing =============================
 % conduct sizing
@@ -25,7 +25,7 @@ if ~isfolder('example_data')
     mkdir('example_data');
 end
 
-save('example_data/UB321_simple_rerun.mat','ADP','Lds');
+save('example_data/A220_simple_rerun.mat','ADP','Lds');
 
 %% ======================== Get Mission Fuel Burn =========================
 meta = ADP.ToMeta;
