@@ -33,9 +33,6 @@ octave-workspace
 
 *.mat
 
-#keep data file for flutter masses
-!@TAW/private/flutterMasses.mat
-
 #################################### Nastran ####################################
 *.f0*
 *.log
@@ -48,3 +45,7 @@ octave-workspace
 *.h5
 *.gif
 bin
+
+
+#######  keep data file for flutter masses
+!@TAW/private/*.mat

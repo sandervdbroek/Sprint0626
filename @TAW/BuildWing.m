@@ -337,8 +337,11 @@ if obj.inclFlutterMass
     LE_ofst_data = [Wing.AeroStations.Chord].*[Wing.AeroStations.BeamLoc];
     LE_ofst = interp1(eta_data(:), LE_ofst_data(:), eta(isInnerWing)); %le positions at requested
 
-    Wing = obj.addMass(Wing, masses(isInnerWing), eta(isInnerWing),...
-        LE_ofst, {massId{isInnerWing}});
+    wingMasses = util.MassFromArray(masses(isInnerWing), eta(isInnerWing),LE_ofst,{massId{isInnerWing}});
+    Wing.add(wingMasses);
+
+    % Wing = obj.addMass(Wing, masses(isInnerWing), eta(isInnerWing),...
+    %     LE_ofst, {massId{isInnerWing}});
 
     %update floating wing__________________________________________________
     if HasFoldingWingtip
@@ -346,8 +349,8 @@ if obj.inclFlutterMass
         eta_data = [FFWT.AeroStations.Eta];
         LE_ofst_data = [FFWT.AeroStations.Chord].*[FFWT.AeroStations.BeamLoc];
         LE_ofst = interp1(eta_data(:), LE_ofst_data(:), eta(~isInnerWing)); %le positions at requested
-        FFWT = obj.addMass(FFWT, masses(~isInnerWing), eta(~isInnerWing),...
-            0*LE_ofst, {massId{~isInnerWing}});
+        wingMasses = util.MassFromArray(masses(~isInnerWing), eta(~isInnerWing),0*LE_ofst, {massId{~isInnerWing}});
+        FFWT.add(wingMasses);
     end
 
 end

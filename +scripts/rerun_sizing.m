@@ -11,7 +11,7 @@ ADP.SweepAngle = 25;
 % conduct sizing
 ads.util.printing.title('Example Surrogates','Length',60,'Symbol','$')
 sizeOpts = util.SizingOpts(IncludeGusts=false,...
-    IncludeTurb=false,BinFolder=bin_folder);
+    IncludeTurb=false,BinFolder='bin_size');
 [ADP,res_mtom,Lds,time,isError,Cases] = ADP.Aircraft_Sizing(sizeOpts);
 % get data during cruise
 fh.printing.title('Get Cruise Loads','Length',60)
