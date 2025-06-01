@@ -11,7 +11,7 @@ ld.CleanUp = false;
 % make a manouvre load case (see LoadCaseFactory)
 M = 0.75;
 Alt = 32000; %ft
-Load_factor = 2.5; %G
+Load_factor = 1; %G
 LoadCase = cast.LoadCase.Manoeuvre(M,Alt,Load_factor,SafetyFactor=1);
 
 % run analysis (assumes nastran 2023 or later)
@@ -25,6 +25,17 @@ Lds.plot("My",ADP.WingBoxParams);
 
 % plot deflecton (you can pan the figure by clicking and dragging the mouse)
 ads.nast.plot.sol144(BinFolder);
+
+
+% plot lift dist
+
+filename = fullfile(BinFolder,'bin','sol144.h5');
+%extract trimAoA
+resFile = mni.result.hdf5(filename);
+[ys,~,~,Fs,~,~,chords] = util.get_lift_dist(ld,resFile,[[ld.Taw.MainWingRHS.Name],[ld.Taw.MainWingLHS.Name]]);
+
+f = figure(10);clf;
+plot(ys,Fs);
 
 
 

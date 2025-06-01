@@ -70,7 +70,7 @@ tr = [obj.TCR_root,interp1(etas_centre2tip([2,end]),[obj.TCR_root,tc_tip],etas_c
 % calc number of elements per section
 
 %% create connector
-wingMat = baff.Material.BlackMetal;
+wingMat = baff.Material.Aluminium;
 wingMat.rho = wingMat.rho*obj.WingDensityFactor;
 Connector = baff.Wing.FromLETESweep(seg_lengths(1),cs(1),[0 1],LE_sweeps(1),TE_sweeps(1),0.4,wingMat,ThicknessRatio=tr([1,2]),Dihedral=0);
 Connector.A = baff.util.rotz(90)*baff.util.rotx(180);
