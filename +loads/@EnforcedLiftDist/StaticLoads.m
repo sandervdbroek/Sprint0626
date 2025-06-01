@@ -63,7 +63,7 @@ ys = ys./max(ys);
 m = obj.Taw.Baff.GetMass;
 L = m*obj.g;
 
-ld = @(eta)gamma_prandtl(eta,0);
+% ld = @(eta)gamma_prandtl(eta,0);
 %% build lift distribution
 if obj.Taw.HingeEta<1
     [ffwt_com,ffwt_m] = wings(3).GetCoM;
