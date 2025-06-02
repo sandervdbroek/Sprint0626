@@ -46,5 +46,6 @@ octave-workspace
 *.gif
 bin
 
-################################ Exceptions ###############################
+
+#######  keep data file for flutter masses
 !@TAW/private/*.mat
