@@ -11,7 +11,7 @@ bin_folder = 'bin_a220_ja1';
 
 %misson settings
 ADP = TAW();
-ADP.ADR = cast.ADR.A320(140,2500,25e3);
+ADP.ADR = cast.ADR.A320(140,2500,16e3);
 ADP.ADR.Alt_cruise = cruise_alt;
 ADP.ADR.Range_alternate = alternate_dist;
 ADP.N_seatsPerRow = 5;
@@ -67,7 +67,8 @@ fprintf('Trip Fuel: %.1f Tn\n',(1-prod(fs([1:5,10,11])))*93.5);
 res = [];
 % now size with DLM for manouevres only
 ads.util.printing.title('Example Surrogates','Length',60,'Symbol','$')
-sizeOpts = util.SizingOpts(IncludeGusts=false,IncludeTurb=false,BinFolder=bin_folder);
+SubHarmonic = [0.8,3000./cast.SI.Nmile];
+sizeOpts = util.SizingOpts(IncludeGusts=false,IncludeTurb=false,BinFolder=bin_folder,SubHarmonic=SubHarmonic);
 [ADP,res_mtom,Lds,time,isError,Cases] = ADP.Aircraft_Sizing(sizeOpts);
 % get data during cruise
 fh.printing.title('Get Cruise Loads','Length',60)
