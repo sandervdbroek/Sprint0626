@@ -1,18 +1,20 @@
 load('example_data\A220_simple.mat')
 
 %% ========================= Set Hyper-parameters =========================
+load("C:\git\sprint0626\+globalOpt\Trainingset_500.mat")
+idx = find(TrainingSet(:,end)==0)';
+idx = idx(1);
 
-
-ADP.AR = 18.6;
-ADP.HingeEta = 0.7;
-ADP.FlareAngle = 15;
-ADP.ADR.M_c = 0.78;
-ADP.SweepAngle = []; % if empty will link to mach number...
-% ADP.ConstraintAnalysis();
+ADP.AR = TrainingSet(idx,1);
+ADP.HingeEta = TrainingSet(idx,2);
+ADP.FlareAngle = TrainingSet(idx,3);
+ADP.ADR.M_c = TrainingSet(idx,4);
+ADP.SweepAngle = TrainingSet(idx,5); % if empty will link to mach number...
+ADP.ConstraintAnalysis();
 ADP.BuildBaff;
 
 f = figure(1);clf;ADP.Baff.draw(f);axis equal
-return
+
 %% ============================ Re-run Sizing =============================
 % conduct sizing
 ads.util.printing.title('Example Surrogates','Length',60,'Symbol','$')
