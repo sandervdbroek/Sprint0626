@@ -1,4 +1,5 @@
-load('C:\git\Sprint0626\example_data\UB321_simple.mat')
+load('C:\git\Sprint0626\example_data\A220_simple.mat')
+ADP.HingeEta = 0.8;
 ADP.BuildBaff();
 
 % extract correct wing elements (could do something clever with name lookup...)
