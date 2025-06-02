@@ -7,7 +7,7 @@ N_pax = 140; % Number of passengers
 N_eng = 2; % Number of engines
 
 %% ========================= Set Hyper-parameters =========================
-nSamples = 100;
+nSamples = 500;
 inputScaled = lhsdesign(nSamples,5);
 inputs = [8 22; ... %AR
     0.5 1; ... %Norm SAH pos
@@ -21,11 +21,19 @@ printoutput = false;
 saveMat = false;
 
 outArray = zeros(nSamples,2);
+tic
 parfor i = 1:nSamples
-    sampleOut = sizeSample(inputUnscaled(i,:),saveMat,printoutput);
-    outArray(i,:) = sampleOut;
-end
+    try
+        sampleOut = sizeSample(inputUnscaled(i,:),saveMat,printoutput);
+        outArray(i,:) = sampleOut;
+    catch ME
+        % Store error message and identifier
+        errors{i} = struct('index', i, 'message', ME.message, 'identifier', ME.identifier);
+        fprintf('Error in sample %d: %s\n', i, ME.message);
 
+    end
+end
+toc
 TrainingSet = [inputUnscaled outArray];
 filename = ['Trainingset_' num2str(nSamples) '.mat'];
 save(filename, 'TrainingSet');
