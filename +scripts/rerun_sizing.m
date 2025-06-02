@@ -1,4 +1,4 @@
-load('C:\git\Sprint0626\example_data\A220_simple.mat')
+load('example_data\A220_simple.mat')
 
 %% ========================= Set Hyper-parameters =========================
 ADP.AR = 12;
@@ -10,8 +10,9 @@ ADP.SweepAngle = []; % if empty will link to mach number...
 %% ============================ Re-run Sizing =============================
 % conduct sizing
 ads.util.printing.title('Example Surrogates','Length',60,'Symbol','$')
+SubHarmonic = [0.8,3000./cast.SI.Nmile];
 sizeOpts = util.SizingOpts(IncludeGusts=false,...
-    IncludeTurb=false,BinFolder='bin_size');
+    IncludeTurb=false,BinFolder='bin_size',SubHarmonic=SubHarmonic);
 [ADP,res_mtom,Lds,time,isError,Cases] = ADP.Aircraft_Sizing(sizeOpts,"SizeMethod","SAH");
 % get data during cruise
 fh.printing.title('Get Cruise Loads','Length',60)
