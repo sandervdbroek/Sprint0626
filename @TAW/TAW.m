@@ -62,6 +62,7 @@ classdef TAW < cast.ADP & cast.size.BaffSizing
 
     properties
         N_seatsPerRow = 5;
+        StaticMargin = 0.35;
     end
 
 

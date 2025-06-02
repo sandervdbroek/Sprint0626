@@ -1,9 +1,10 @@
 load('example_data\A220_simple.mat')
 
 %% ========================= Set Hyper-parameters =========================
-load("C:\git\sprint0626\+globalOpt\Trainingset_500.mat")
+load("+globalOpt\Trainingset_100.mat")
 idx = find(TrainingSet(:,end)==0)';
-idx = idx(1);
+ads.util.printing.title(sprintf('%.0f Errors',length(idx)))
+idx = idx(4);
 
 ADP.AR = TrainingSet(idx,1);
 ADP.HingeEta = TrainingSet(idx,2);

@@ -12,7 +12,7 @@ ADP.SweepAngle = []; % if empty will link to mach number...
 ADP.BuildBaff;
 
 f = figure(1);clf;ADP.Baff.draw(f);axis equal
-return
+
 %% ============================ Re-run Sizing =============================
 % conduct sizing
 ads.util.printing.title('Example Surrogates','Length',60,'Symbol','$')
