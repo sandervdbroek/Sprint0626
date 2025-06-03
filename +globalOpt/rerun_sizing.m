@@ -4,7 +4,9 @@ load('example_data\A220_simple.mat')
 load("+globalOpt\Trainingset_100.mat")
 idx = find(TrainingSet(:,end)==0)';
 ads.util.printing.title(sprintf('%.0f Errors',length(idx)))
-idx = idx(4);
+idx = idx(2);
+idx =2;
+disp(TrainingSet(idx,:))
 
 ADP.AR = TrainingSet(idx,1);
 ADP.HingeEta = TrainingSet(idx,2);
@@ -38,7 +40,8 @@ end
 save('example_data/A220_simple_rerun.mat','ADP','Lds');
 
 %% ======================== Get Mission Fuel Burn =========================
-meta = ADP.ToMeta;
+[~,~,trip_fuel,trip_time] = ADP.MJperPAX(3000./cast.SI.Nmile,1);
 fh.printing.title('','Length',60,'Symbol','=')
-fh.printing.title(sprintf('Trip Fuel: %.3f t',meta.Fuel_trip./1e3),'Length',60,'Symbol','=')
+fh.printing.title(sprintf('Trip Fuel: %.3f t',trip_fuel./1e3),'Length',60,'Symbol','=')
+fh.printing.title(sprintf('Trip Time: %.0f t',trip_time),'Length',60,'Symbol','=')
 fh.printing.title(sprintf('MTOM: %.2f t',ADP.MTOM),'Length',60,'Symbol','=')
