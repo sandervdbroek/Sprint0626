@@ -6,8 +6,8 @@ arguments
     opts.Mass_factor = 1;
     opts.BeamElements = 25;
     opts.Retracted = false;
-    opts.EnginePos = 5.75;
-    opts.KinkPos = 6.5;
+    opts.EnginePos = 5.5;
+    opts.KinkPos = 5.75;
 end
 % create tag
 if isRight
@@ -43,8 +43,8 @@ tc_tip = obj.TCR_root - 0.03;
 
 % calculate wing planform shape
 D_join = sqrt((D_c/2)^2-(D_c/4)^2)*2;
-tr_out = 0.349;
-tr_in = 0.5;
+tr_out = 0.35;
+tr_in = 0.61;
 S = @(x)wingArea(obj.WingArea,obj.AR,tr_out,tr_in,KinkEta,x,D_join,sweep_qtr);
 c = fminsearch(@(x)(S(x)-obj.WingArea).^2,obj.WingArea./sqrt(obj.WingArea*obj.AR)); % get root chord
 [~,cs,LE_sweeps,TE_sweeps] = wingArea(obj.WingArea,obj.AR,tr_out,tr_in,KinkEta,c,D_join,sweep_qtr); % get final parameters
@@ -375,9 +375,6 @@ A_3 = (c+c_t)/2*L3;
 S = 2*(A_1+A_2+A_3);
 
 cs = [c_r,c_r,c,c_t];
-% ys = [0,R_f,R_f + L2, b];
-
-
 
 x_qtr = [0 0 tand(LambdaQtr)*L2 tand(LambdaQtr)*(L2+L3)];
 x_le = -cs.*0.25 + x_qtr;
