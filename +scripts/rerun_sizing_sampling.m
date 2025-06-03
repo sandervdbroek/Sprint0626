@@ -7,12 +7,11 @@ N_pax = 140; % Number of passengers
 N_eng = 2; % Number of engines
 
 %% ========================= Set Hyper-parameters =========================
-% nSamplesvec = [100, 250, 500, 1000, 2500 10000];
-nSamplesvec = [1 3 5];
-inputScaled = lhsdesign(nSamples,5);
+nSamplesvec = [100, 250, 500, 1000, 2500 10000];
+%nSamplesvec = [1 3 5];
 % type = 'test';
 types = {'train','test'};
-for i = 1:length(nSamples)
+for i = 1:length(nSamplesvec)
     for j = 1:2
         nSamples = nSamplesvec(i);
         type = types{j};
