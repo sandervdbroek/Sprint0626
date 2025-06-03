@@ -1,11 +1,11 @@
-load('example_data\A220_simple.mat')
+load('example_data\A220_simple_rerun.mat')
 
-%% ========================= Set Hyper-parameters =========================
-load("+globalOpt\Trainingset_100.mat")
+% ========================= Set Hyper-parameters =========================
+load("+globalOpt\Trainingset_500.mat")
 idx = find(TrainingSet(:,end)==0)';
 ads.util.printing.title(sprintf('%.0f Errors',length(idx)))
-idx = idx(2);
-idx =2;
+idx = idx(1);
+% idx =2;
 disp(TrainingSet(idx,:))
 
 ADP.AR = TrainingSet(idx,1);
@@ -14,7 +14,7 @@ ADP.FlareAngle = TrainingSet(idx,3);
 ADP.ADR.M_c = TrainingSet(idx,4);
 ADP.SweepAngle = TrainingSet(idx,5); % if empty will link to mach number...
 ADP.ConstraintAnalysis();
-ADP.BuildBaff;
+ADP.BuildBaff("Retracted",false);
 
 f = figure(1);clf;ADP.Baff.draw(f);axis equal
 
