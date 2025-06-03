@@ -359,22 +359,46 @@ Wing.Stations = Wing.Stations.interpolate(unique([wing_etas,engine.Eta,ldg.Eta])
 FuelMassTotal = ConFuelMassTotal + WingFuelMassTotal;
 end
 
-function [S,cs,le_sweep,te_sweep] = wingArea(S,AR,lambda,k,c,Lambda_LE,Lambda_TE,D_f)
+
+function [S,cs,le_sweep,te_sweep] = wingArea(S,AR,lambda1,lambda2,k,c,D_f,LambdaQtr)
 b = sqrt(AR*S)/2;
-Lambda_LE = atand(c/4*(1-lambda)/(b*(1-k))+tand(Lambda_LE));
 R_f = D_f/2;
-c_t = lambda*c;
-c_r = c+(tand(Lambda_LE)-tand(Lambda_TE))*(k*b-R_f);
-A_1 = (c+c_t)/2*b*(1-k);
-A_2 = (c_r+c)/2*(k*b-D_f/2);
-A_3 = c_r*R_f;
+c_t = lambda1*c;
+c_r = c/lambda2;
+
+A_1 = c_r*R_f;
+L2 = k*b-R_f;
+A_2 = (c_r+c)/2*L2;
+L3 =  b*(1-k);
+A_3 = (c+c_t)/2*L3;
 S = 2*(A_1+A_2+A_3);
+
 cs = [c_r,c_r,c,c_t];
-le_sweep = [0 1 1]*Lambda_LE;
-L = b*(1-k);
-te_sweep_end = atand((tand(Lambda_LE)*L+c_t-c)/L);
-te_sweep = [0,Lambda_TE te_sweep_end];
+ys = [0,R_f,R_f + L2, b];
+x_qtr = [0 0 tand(LambdaQtr)*L2 tand(LambdaQtr)*L3];
+x_le = -cs.*0.25 + x_qtr;
+x_te = cs.*0.75 + x_qtr;
+
+le_sweep = atand((x_le(2:end)-x_le(1:end-1))./[R_f L2 L3]);
 end
+
+
+% function [S,cs,le_sweep,te_sweep] = wingArea(S,AR,lambda,k,c,Lambda_LE,Lambda_TE,D_f)
+% b = sqrt(AR*S)/2;
+% Lambda_LE = atand(c/4*(1-lambda)/(b*(1-k))+tand(Lambda_LE));
+% R_f = D_f/2;
+% c_t = lambda*c;
+% c_r = c+(tand(Lambda_LE)-tand(Lambda_TE))*(k*b-R_f);
+% A_1 = (c+c_t)/2*b*(1-k);
+% A_2 = (c_r+c)/2*(k*b-D_f/2);
+% A_3 = c_r*R_f;
+% S = 2*(A_1+A_2+A_3);
+% cs = [c_r,c_r,c,c_t];
+% le_sweep = [0 1 1]*Lambda_LE;
+% L = b*(1-k);
+% te_sweep_end = atand((tand(Lambda_LE)*L+c_t-c)/L);
+% te_sweep = [0,Lambda_TE te_sweep_end];
+% end
 
 function vals = linspaceConstrained(xs,N)
 if N<length(xs)
