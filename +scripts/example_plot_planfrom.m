@@ -1,4 +1,4 @@
-load('C:\git\Sprint0626\example_data\A220_simple.mat')
+load('example_data\A220_simple_rerun.mat')
 ADP.HingeEta = 0.8;
 ADP.BuildBaff();
 
@@ -29,3 +29,5 @@ xlabel('Y [m]')
 ylabel('X [m]')
 ax = gca;
 ax.YDir = "reverse";
+
+copygraphics(gcf);

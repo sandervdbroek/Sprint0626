@@ -43,10 +43,11 @@ tc_tip = obj.TCR_root - 0.03;
 
 % calculate wing planform shape
 D_join = sqrt((D_c/2)^2-(D_c/4)^2)*2;
-tr = 0.349;
-S = @(x)wingArea(obj.WingArea,obj.AR,tr,KinkEta,x,sweep_qtr,0,D_join);
+tr_out = 0.349;
+tr_in = 0.45;
+S = @(x)wingArea(obj.WingArea,obj.AR,tr_out,tr_in,KinkEta,x,D_join,sweep_qtr);
 c = fminsearch(@(x)(S(x)-obj.WingArea).^2,obj.WingArea./sqrt(obj.WingArea*obj.AR)); % get root chord
-[~,cs,LE_sweeps,TE_sweeps] = wingArea(obj.WingArea,obj.AR,tr,KinkEta,c,sweep_qtr,0,D_join); % get final parameters
+[~,cs,LE_sweeps,TE_sweeps] = wingArea(obj.WingArea,obj.AR,tr_out,tr_in,KinkEta,c,D_join,sweep_qtr); % get final parameters
 
 %% calc properties of interest
 HasFoldingWingtip = ~isnan(obj.HingeEta) & obj.HingeEta<1;
@@ -374,12 +375,13 @@ A_3 = (c+c_t)/2*L3;
 S = 2*(A_1+A_2+A_3);
 
 cs = [c_r,c_r,c,c_t];
-ys = [0,R_f,R_f + L2, b];
-x_qtr = [0 0 tand(LambdaQtr)*L2 tand(LambdaQtr)*L3];
+% ys = [0,R_f,R_f + L2, b];
+x_qtr = [0 0 tand(LambdaQtr)*L2 tand(LambdaQtr)*(L2+L3)];
 x_le = -cs.*0.25 + x_qtr;
 x_te = cs.*0.75 + x_qtr;
 
 le_sweep = atand((x_le(2:end)-x_le(1:end-1))./[R_f L2 L3]);
+te_sweep = atand((x_te(2:end)-x_te(1:end-1))./[R_f L2 L3]);
 end
 
 

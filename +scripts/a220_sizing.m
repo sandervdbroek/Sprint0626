@@ -83,8 +83,16 @@ if ~isfolder('example_data')
 end
 save('example_data/A220_simple.mat','ADP','Lds');
 
+
+
+%% res
 meta = ADP.ToMeta;
 fh.printing.title('','Length',60,'Symbol','=')
 fh.printing.title(sprintf('Trip Fuel: %.3f t',meta.Fuel_trip./1e3),'Length',60,'Symbol','=')
 fh.printing.title(sprintf('MTOM: %.2f t',ADP.MTOM),'Length',60,'Symbol','=')
+
+f = figure(1);clf;
+ADP.BuildBaff(Retracted=false);
+ADP.Baff.draw(f);
+axis equal
 

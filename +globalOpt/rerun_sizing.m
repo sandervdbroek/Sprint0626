@@ -1,10 +1,10 @@
-load('example_data\A220_simple.mat')
+load('example_data\A220_simple_rerun.mat')
 
 % ========================= Set Hyper-parameters =========================
 load("+globalOpt\Trainingset_500.mat")
 idx = find(TrainingSet(:,end)==0)';
 ads.util.printing.title(sprintf('%.0f Errors',length(idx)))
-idx = idx(4);
+idx = idx(1);
 % idx =2;
 disp(TrainingSet(idx,:))
 
