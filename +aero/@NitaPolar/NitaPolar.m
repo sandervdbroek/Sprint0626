@@ -83,6 +83,9 @@ classdef NitaPolar < api.AbstractPolar
                 Cl
                 Phase FlightPhase = FlightPhase.Cruise;
             end
+            if obj.Taw.LogCl
+                obj.Taw.CLs(end+1) = Cl;
+            end
             switch Phase
                 case FlightPhase.Cruise
                     CD = obj.CD0_c + Cl^2/(pi*obj.AR*obj.e_c);

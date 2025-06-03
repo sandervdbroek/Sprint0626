@@ -8,7 +8,7 @@ ADP.HingeEta = 0.7;
 ADP.FlareAngle = 15;
 ADP.ADR.M_c = 0.78;
 ADP.SweepAngle = []; % if empty will link to mach number...
-% ADP.ConstraintAnalysis();
+ADP.ConstraintAnalysis();
 ADP.BuildBaff;
 
 f = figure(1);clf;ADP.Baff.draw(f);axis equal
@@ -35,7 +35,9 @@ end
 save('example_data/A220_simple_rerun.mat','ADP','Lds');
 
 %% ======================== Get Mission Fuel Burn =========================
-meta = ADP.ToMeta;
+ADP.LogCl = true;
+ADP.SetConfiguration(PayloadFraction=0.8);
+[~,~,trip_fuel,~] = ADP.MJperPAX(3000./cast.SI.Nmile,0.8);
 fh.printing.title('','Length',60,'Symbol','=')
-fh.printing.title(sprintf('Trip Fuel: %.3f t',meta.Fuel_trip./1e3),'Length',60,'Symbol','=')
+fh.printing.title(sprintf('Trip Fuel: %.3f t',trip_fuel./1e3),'Length',60,'Symbol','=')
 fh.printing.title(sprintf('MTOM: %.2f t',ADP.MTOM),'Length',60,'Symbol','=')
