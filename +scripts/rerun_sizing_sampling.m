@@ -7,8 +7,8 @@ N_pax = 140; % Number of passengers
 N_eng = 2; % Number of engines
 
 %% ========================= Set Hyper-parameters =========================
-% nSamplesvec = [100, 250, 500, 1000, 2500 10000];
-nSamplesvec = [1 3 5];
+nSamplesvec = [100, 250, 500, 1000, 2500 10000];
+% nSamplesvec = [1 3 5];
 inputScaled = lhsdesign(nSamples,5);
 % type = 'test';
 types = {'train','test'};
@@ -22,7 +22,7 @@ for i = 1:length(nSamples)
             inputScaled = lhsdesign(nSamples,5);
         end
         inputs = [12 22; ... %AR
-            0.55 1; ... %Norm SAH pos
+            0.5 1; ... %Norm SAH pos
             5 35;... % SAH Flare angle
             0.5 0.85;... % Cruise speed (mach)
             0 40]; %Qtr-Chord sweep angle
