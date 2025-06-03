@@ -31,7 +31,7 @@ function [EWF,fs,ts] = MissionFraction(obj,Segments,opts)
                 for j = 1:length(deltaH)
                     if opts.OverideLD
                         CL_c = EWF*deltaf*opts.M_TO*9.81/(1/2*rho(j)*(a(j)*M(j))^2*obj.WingArea);
-                        CD_c = obj.AeroSurrogate.Get_Cd(CL_c,FlightPhase.Cruise);
+                        CD_c = obj.AeroSurrogate.Get_Cd(CL_c,M(j),FlightPhase.Cruise);
                         LD_c = CL_c/CD_c;
                     else
                         LD_c = obj.LD_c;
@@ -53,7 +53,7 @@ function [EWF,fs,ts] = MissionFraction(obj,Segments,opts)
                 end
                 if opts.OverideLD
                     CL_c = EWF*opts.M_TO*9.81/(1/2*rho*(a*M_cruise)^2*obj.WingArea);
-                    CD_c = obj.AeroSurrogate.Get_Cd(CL_c,FlightPhase.Cruise);
+                    CD_c = obj.AeroSurrogate.Get_Cd(CL_c,M_cruise,FlightPhase.Cruise);
                     LD_c = CL_c/CD_c;
                 else
                     LD_c = obj.LD_c;
@@ -79,7 +79,7 @@ function [EWF,fs,ts] = MissionFraction(obj,Segments,opts)
                 [rho,a,~,P] = ads.util.atmos(s.StartAlt);
                 if opts.OverideLD
                     CL = EWF*opts.M_TO*9.81/(1/2*rho*(a*s.Mach)^2*obj.WingArea);
-                    CD = obj.AeroSurrogate.Get_Cd(CL,FlightPhase.Cruise);
+                    CD = obj.AeroSurrogate.Get_Cd(CL,s.Mach,FlightPhase.Cruise);
                     LD = CL/CD;
                 else
                     LD = obj.LD_app;
@@ -92,7 +92,7 @@ function [EWF,fs,ts] = MissionFraction(obj,Segments,opts)
                 [rho,a] = ads.util.atmos(s.StartAlt);
                 if opts.OverideLD
                     CL = EWF*opts.M_TO*9.81/(1/2*rho*(a*s.Mach)^2*obj.WingArea);
-                    CD = obj.AeroSurrogate.Get_Cd(CL,FlightPhase.Cruise);
+                    CD = obj.AeroSurrogate.Get_Cd(CL,s.Mach,FlightPhase.Cruise);
                     LD = CL/CD;
                 else
                     LD = obj.LD_app;

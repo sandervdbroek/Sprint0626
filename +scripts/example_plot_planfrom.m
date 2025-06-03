@@ -1,6 +1,8 @@
-load('example_data\A220_simple_rerun.mat')
-ADP.HingeEta = 0.8;
-ADP.BuildBaff();
+load('example_data\A220_simple.mat')
+ADP.ConstraintAnalysis();
+ADP.BuildBaff;
+
+f = figure(1);clf;ADP.Baff.draw(f);axis equal
 
 % extract correct wing elements (could do something clever with name lookup...)
 Wings = ADP.Baff.Wing;

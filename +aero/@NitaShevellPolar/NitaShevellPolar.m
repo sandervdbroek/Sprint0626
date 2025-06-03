@@ -84,10 +84,11 @@ classdef NitaShevellPolar < api.AbstractPolar
             meta = obj.CD0_meta_c;
         end
 
-        function CD = Get_Cd(obj,Cl,Phase)
+        function CD = Get_Cd(obj,Cl,M,Phase)
             arguments
                 obj
                 Cl
+                M
                 Phase FlightPhase = FlightPhase.Cruise;
             end
             if obj.Taw.LogCl
@@ -95,7 +96,7 @@ classdef NitaShevellPolar < api.AbstractPolar
             end
             switch Phase
                 case FlightPhase.Cruise
-                    CD = obj.CD0_c + Cl^2/(pi*obj.AR*obj.e_c) + obj.Shevell(obj.Taw.ADR.M_c,Cl);
+                    CD = obj.CD0_c + Cl^2/(pi*obj.AR*obj.e_c) + obj.Shevell(M,Cl);
                 case FlightPhase.Landing
                     CD = obj.CD0_ld + Cl^2/(pi*obj.AR*obj.e_ld);
                 case FlightPhase.Approach

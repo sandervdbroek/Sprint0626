@@ -77,7 +77,7 @@ classdef NitaPolar < api.AbstractPolar
             meta = obj.CD0_meta_c;
         end
 
-        function CD = Get_Cd(obj,Cl,Phase)
+        function CD = Get_Cd(obj,Cl,M,Phase)
             arguments
                 obj
                 Cl
