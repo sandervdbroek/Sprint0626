@@ -44,7 +44,7 @@ tc_tip = obj.TCR_root - 0.03;
 % calculate wing planform shape
 D_join = sqrt((D_c/2)^2-(D_c/4)^2)*2;
 tr_out = 0.349;
-tr_in = 0.45;
+tr_in = 0.5;
 S = @(x)wingArea(obj.WingArea,obj.AR,tr_out,tr_in,KinkEta,x,D_join,sweep_qtr);
 c = fminsearch(@(x)(S(x)-obj.WingArea).^2,obj.WingArea./sqrt(obj.WingArea*obj.AR)); % get root chord
 [~,cs,LE_sweeps,TE_sweeps] = wingArea(obj.WingArea,obj.AR,tr_out,tr_in,KinkEta,c,D_join,sweep_qtr); % get final parameters
@@ -376,12 +376,19 @@ S = 2*(A_1+A_2+A_3);
 
 cs = [c_r,c_r,c,c_t];
 % ys = [0,R_f,R_f + L2, b];
+
+
+
 x_qtr = [0 0 tand(LambdaQtr)*L2 tand(LambdaQtr)*(L2+L3)];
 x_le = -cs.*0.25 + x_qtr;
 x_te = cs.*0.75 + x_qtr;
 
 le_sweep = atand((x_le(2:end)-x_le(1:end-1))./[R_f L2 L3]);
 te_sweep = atand((x_te(2:end)-x_te(1:end-1))./[R_f L2 L3]);
+
+% correct to ensure straight LE
+le_sweep = [0 1 1].* le_sweep(end);
+te_sweep(2) = atand((-c_r + tand(le_sweep(2))*L2 + c)/L2);
 end
 
 
