@@ -32,7 +32,7 @@ for i = 1:length(nSamples)
         printoutput = false;
         saveMat = false;
 
-        outArray = zeros(nSamples,3);
+        outArray = zeros(nSamples,4);
         tic
         parfor i = 1:nSamples
             try
