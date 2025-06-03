@@ -89,5 +89,5 @@ if printoutput
     fh.printing.title(sprintf('Operating Cost: %d USD per seat per km',C_ops),'Length',60,'Symbol','=')
     
 end
-output = [meta.Fuel_trip,C_ops];
+output = [meta.Fuel_trip,C_ops,ADP.Span*ADP.HingeEta];
 end

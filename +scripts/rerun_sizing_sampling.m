@@ -7,10 +7,17 @@ N_pax = 140; % Number of passengers
 N_eng = 2; % Number of engines
 
 %% ========================= Set Hyper-parameters =========================
-nSamples = 500;
+nSamples = 1000;
 inputScaled = lhsdesign(nSamples,5);
+% type = 'test';
+type = 'train';
+if strcmp(type,'test')
+    inputScaled = rand(nSamples,5);
+else
+    inputScaled = lhsdesign(nSamples,5);
+end
 inputs = [8 22; ... %AR
-    0.5 1; ... %Norm SAH pos
+    0.55 1; ... %Norm SAH pos
     5 35;... % SAH Flare angle
     0.5 0.85;... % Cruise speed (mach)
     0 40]; %Qtr-Chord sweep angle
@@ -20,7 +27,7 @@ inputUnscaled = inputScaled*diag(inScale)+ones(size(inputScaled))*diag(inputs(:,
 printoutput = false;
 saveMat = false;
 
-outArray = zeros(nSamples,2);
+outArray = zeros(nSamples,3);
 tic
 parfor i = 1:nSamples
     try
@@ -34,11 +41,21 @@ parfor i = 1:nSamples
     end
 end
 toc
-TrainingSet = [inputUnscaled outArray];
-filename = ['Trainingset_' num2str(nSamples) '.mat'];
-save(filename, 'TrainingSet');
-
-% Save as .csv
-filename_csv = ['Trainingset_' num2str(nSamples) '.csv'];
-writematrix(TrainingSet, filename_csv);  % Use csvwrite if using older MATLAB
+if strcmp(type,'test')
+    TrainingSet = [inputUnscaled outArray];
+    filename = ['Testset_' num2str(nSamples) '.mat'];
+    save(filename, 'TrainingSet');
+    
+    % Save as .csv
+    filename_csv = ['Testset_' num2str(nSamples) '.csv'];
+    writematrix(TrainingSet, filename_csv);  % Use csvwrite if using older MATLAB
+else
+    TrainingSet = [inputUnscaled outArray];
+    filename = ['Trainingset_' num2str(nSamples) '.mat'];
+    save(filename, 'TrainingSet');
+    
+    % Save as .csv
+    filename_csv = ['Trainingset_' num2str(nSamples) '.csv'];
+    writematrix(TrainingSet, filename_csv);  % Use csvwrite if using older MATLAB
+end
 
