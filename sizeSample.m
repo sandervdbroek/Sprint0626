@@ -2,7 +2,7 @@ function output = sizeSample(input,saveMat,printoutput)
 
 fuel_price = 0.64995; % USD/kg
 oil_price = 30.0; % USD/kg
-range_mission = 3000./(cast.SI.Nmile*1000); % range of mission [km]
+range_mission = 3000./(cast.SI.Nmile); % range of mission [km]
 N_pax = 140; % Number of passengers
 N_eng = 2; % Number of engines
 

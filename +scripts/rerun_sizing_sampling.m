@@ -33,7 +33,9 @@ for i = 1:length(nSamplesvec)
 
         outArray = zeros(nSamples,4);
         tic
+        % for i = 1:nSamples
         parfor i = 1:nSamples
+        % sampleOut = sizeSample(inputUnscaled(i,:),saveMat,printoutput);
             try
                 sampleOut = sizeSample(inputUnscaled(i,:),saveMat,printoutput);
                 outArray(i,:) = sampleOut;
