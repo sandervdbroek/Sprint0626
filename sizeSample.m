@@ -30,7 +30,7 @@ res = util.ADP2SizeMeta(ADP,'GFWT','Mano',1.5,Lds,time,isError,Cases);
 
 [doc,M_f,trip_fuel,t_bl] = ADP.MJperPAX(range_mission,0.8);
 
-
+t_bl = t_bl/3600;
 %% ============================ Operating Cost Calculation ================
 % fuel and oil costs
 meta = ADP.ToMeta;
