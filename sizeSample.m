@@ -28,14 +28,13 @@ Lds = Lds | Lds_c;
 %save data
 res = util.ADP2SizeMeta(ADP,'GFWT','Mano',1.5,Lds,time,isError,Cases);
 
-[doc,M_f,trip_fuel,t_bl] = ADP.MJperPAX(range_mission,0.8);
+[doc,M_f,trip_fuel,t_bl,block_fuel] = ADP.MJperPAX(range_mission,0.8);
 
 t_bl = t_bl/3600;
 %% ============================ Operating Cost Calculation ================
 % fuel and oil costs
-meta = ADP.ToMeta;
 % C_fuel and C_oil [USD per seat per km]
-C_fuel = meta.Fuel_block * fuel_price / range_mission / N_pax;
+C_fuel = block_fuel * fuel_price / range_mission / N_pax;
 
 % speed of sound at cruise level [m/s]
 [rho,a,~,P] = ads.util.atmos(34e3./cast.SI.ft);
@@ -64,7 +63,7 @@ C_crew = ((1+0.26)*salary_crew/1000. + 9)/(N_pax * V_bl);
 
 % insurance & maintenance cost
 % USD 1500 per flight hour
-C_other = 1500. / (N_pax * range_mission);
+C_other = 1500*t_bl/3600. / (N_pax * range_mission);
 
 % Total operating cost (per pax per km)
 C_ops = C_fuel + C_oil + C_crew + C_other;

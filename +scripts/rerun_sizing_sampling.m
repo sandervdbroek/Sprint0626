@@ -7,7 +7,7 @@ N_pax = 140; % Number of passengers
 N_eng = 2; % Number of engines
 
 %% ========================= Set Hyper-parameters =========================
-nSamplesvec = [10 100 250 500, 1000, 2500 ];
+nSamplesvec = [2500 ];
 %nSamplesvec = [1 3 5];
 % type = 'test';
 types = {'train'};
@@ -33,9 +33,9 @@ for i = 1:length(nSamplesvec)
 
         outArray = zeros(nSamples,4);
         tic
-        % for i = 1:nSamples
-        parfor i = 1:nSamples
-        % sampleOut = sizeSample(inputUnscaled(i,:),saveMat,printoutput);
+        for i = 1:nSamples
+        % parfor i = 1:nSamples
+        % % sampleOut = sizeSample(inputUnscaled(i,:),saveMat,printoutput);
             try
                 sampleOut = sizeSample(inputUnscaled(i,:),saveMat,printoutput);
                 outArray(i,:) = sampleOut;
