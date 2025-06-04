@@ -1,15 +1,20 @@
-load('example_data\A220_simple.mat')
+load('example_data\A220_simple_rerun.mat')
 
-%% ========================= Set Hyper-parameters =========================
+% ========================= Set Hyper-parameters =========================
+load("+globalOpt\Trainingset_500.mat")
+idx = find(TrainingSet(:,end)==0)';
+ads.util.printing.title(sprintf('%.0f Errors',length(idx)))
+idx = idx(1);
+% idx =2;
+disp(TrainingSet(idx,:))
 
-
-ADP.AR = 18.6;
-ADP.HingeEta = 0.7;
-ADP.FlareAngle = 15;
-ADP.ADR.M_c = 0.78;
-ADP.SweepAngle = []; % if empty will link to mach number...
+ADP.AR = TrainingSet(idx,1);
+ADP.HingeEta = TrainingSet(idx,2);
+ADP.FlareAngle = TrainingSet(idx,3);
+ADP.ADR.M_c = TrainingSet(idx,4);
+ADP.SweepAngle = TrainingSet(idx,5); % if empty will link to mach number...
 ADP.ConstraintAnalysis();
-ADP.BuildBaff;
+ADP.BuildBaff("Retracted",false);
 
 f = figure(1);clf;ADP.Baff.draw(f);axis equal
 
@@ -35,9 +40,8 @@ end
 save('example_data/A220_simple_rerun.mat','ADP','Lds');
 
 %% ======================== Get Mission Fuel Burn =========================
-ADP.LogCl = true;
-ADP.SetConfiguration(PayloadFraction=0.8);
-[~,~,trip_fuel,~] = ADP.MJperPAX(3000./cast.SI.Nmile,0.8);
+[~,~,trip_fuel,trip_time] = ADP.MJperPAX(3000./cast.SI.Nmile,1);
 fh.printing.title('','Length',60,'Symbol','=')
 fh.printing.title(sprintf('Trip Fuel: %.3f t',trip_fuel./1e3),'Length',60,'Symbol','=')
+fh.printing.title(sprintf('Trip Time: %.0f t',trip_time),'Length',60,'Symbol','=')
 fh.printing.title(sprintf('MTOM: %.2f t',ADP.MTOM),'Length',60,'Symbol','=')
