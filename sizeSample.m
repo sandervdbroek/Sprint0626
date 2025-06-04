@@ -28,7 +28,7 @@ Lds = Lds | Lds_c;
 %save data
 res = util.ADP2SizeMeta(ADP,'GFWT','Mano',1.5,Lds,time,isError,Cases);
 
-[doc,M_f,trip_fuel] = ADP.MJperPAX(range_mission,0.8);
+[doc,M_f,trip_fuel,t_bl] = ADP.MJperPAX(range_mission,0.8);
 
 
 %% ============================ Operating Cost Calculation ================
@@ -43,7 +43,7 @@ C_fuel = meta.Fuel_block * fuel_price / range_mission / N_pax;
 TAS = a * ADP.ADR.M_c;
 
 % mission time in hours
-t_bl = range_mission * 1000 / (TAS * 3600);
+% t_bl = range_mission * 1000 / (TAS * 3600);
 C_oil = 0.7 * N_eng * t_bl * oil_price / range_mission / N_pax;
 
 % flight crew costs
